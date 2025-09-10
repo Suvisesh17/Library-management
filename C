@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_BOOKS 100
+#define FILE_NAME "library_data.txt"
+
+// Structure to hold book information
+struct Book {
+    int id;
+    char title[50];
+    char author[50];
+    int is_available; // 1 for available, 0 for not
+};
+
+struct Book library[MAX_BOOKS];
+int num_books = 0;
+
+// Function prototypes
+void load_data();
+void save_data();
+void add_book();
+void display_books();
+void search_book();
+void remove_book();
+
+int main() {
+    load_data();
+    int choice;
+    while (1) {
+        printf("\nLibrary Management System\n");
+        printf("1. Add a new book\n");
+        printf("2. Display all books\n");
+        printf("3. Search for a book\n");
+        printf("4. Remove a book\n");
+        printf("5. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                add_book();
+                break;
+            case 2:
+                display_books();
+                break;
+            case 3:
+                search_book();
+                break;
+            case 4:
+                remove_book();
+                break;
+            case 5:
+                save_data();
+                exit(0);
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+    return 0;
+}
+
+// Implementations for load_data, save_data, add_book, etc. would go here.
+// For example:
+void add_book() {
+    if (num_books >= MAX_BOOKS) {
+        printf("Library is full!\n");
+        return;
+    }
+    printf("Enter Book ID: ");
+    scanf("%d", &library[num_books].id);
+    printf("Enter Title: ");
+    scanf(" %[^\n]s", library[num_books].title);
+    printf("Enter Author: ");
+    scanf(" %[^\n]s", library[num_books].author);
+    library[num_books].is_available = 1;
+    num_books++;
+    printf("Book added successfully!\n");
+}
+// Other functions for search, display, remove, load, and save
